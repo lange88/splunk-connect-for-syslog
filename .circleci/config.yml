@@ -321,7 +321,8 @@ jobs:
                                 -v project_archive:/work/archive \
                                 registry.access.redhat.com/ubi7/ubi
             docker cp dummy:/work/test-results/test.xml test-results/  || true
-            docker cp dummy:/work/archive test-results/  || true
+            docker exec dummy tar -zcvf /tmp/archive.tgz /work/archive || true
+            docker cp dummy:/tmp/archive.tgz test-results/  || true
       - store_artifacts:
           path: test-results
           destination: test-results
